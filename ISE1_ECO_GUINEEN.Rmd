@@ -1,0 +1,104 @@
+---
+title: '"PROJETRSTUDIO"'
+author: "HABA Fromo Francis"
+date: "2024-04-26"
+output: html_document
+---
+```{r}
+#IMPORTATION DE LA BASE DE DONNEES gender-inequality-index.csv
+library(readr)
+gender_inequality_index <- read_csv("gender-inequality-index.csv")
+View(gender_inequality_index)
+#IMPORTATION DE LA BASE DE DONNEES population-growth-annual.csv
+library(readr)
+population_growth_annual <- read_csv("population-growth-annual.csv")
+View(population_growth_annual)
+#IMPORTATION DE LA BASE DE DONNEES annual-growth-in-gini-per-capita.csv
+library(readr)
+annual_growth_in_gni_per_capita <- read_csv("annual-growth-in-gni-per-capita.csv")
+View(annual_growth_in_gni_per_capita)
+#La selection du Niger dans les trois bases de données ci-dessus
+library(magrittr)
+library(dplyr)
+DATA1<-gender_inequality_index%>%filter(`Region Name`=="Niger")#Permet de selection le Niger parmi les autres pays de la base de donnée
+View(DATA1)#Permet d'afficher le dataframe(DATA1)
+DATA2<-population_growth_annual%>%filter(`Region Name`=="Niger")#Permet de selection le Niger parmi les autres pays de la base de donnée
+View(DATA2)#Permet d'afficher le dataframe(DATA2)
+DATA3<-annual_growth_in_gni_per_capita%>%filter(`Region Name`=="Niger")#Permet de selection le Niger parmi les autres pays de la base de donnée
+View(DATA3)#Permet d'afficher le dataframe(DATA3)
+#La production des graphiques à partir des différentes bases de données ci-dessus
+library(tidyverse)
+library(ggplot2)
+ggplot(DATA1) +
+  aes(
+    x = `Start Year`,
+    y = Value,
+    size = Source,
+    group = `Region Name`
+  ) +
+  geom_line(colour = "#0C4C8A") +
+  labs(
+    title = "Figure : Gender inequality index",
+    caption = "Niger"
+  ) +
+  theme_minimal() +
+  ylim(0.2, 0.8)
+library(tidyverse)
+library(ggplot2)
+ggplot(DATA2) +
+  aes(
+    x = `Start Year`,
+    y = Value,
+    size = Source,
+    group = `Region Name`
+  ) +
+  geom_line(colour = "#0C4C8A") +
+  labs(
+    title = "Figure : Annual population growth(%)",
+    caption = "Niger"
+  ) +
+  theme_minimal() +
+  ylim(1, 4)
+library(tidyverse)
+library(ggplot2)
+ggplot(DATA3) +
+  aes(
+    x = `Start Year`,
+    y = Value,
+    size = Source,
+    group = `Region Name`
+  ) +
+  geom_line(colour = "#0C4C8A") +
+  labs(
+    title = "Figure : Income growth and distribution(Gini Index)",
+    caption = "Niger"
+  ) +
+  theme_minimal()
+
+
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
